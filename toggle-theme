@@ -59,11 +59,13 @@ function wofi_light() {
 STATE_FILE="$HOME/.local/state/theme-toggle/state.json"
 
 function setup() {
-	mkdir -p "$(dirname $STATE_FILE)"
-	if [ ! -e "$HOME/.local/state/theme-toggle/" ]
+	if [ -f "$STATE_FILE" ]
 	then
-		echo '{"theme": "dark"}' > "$STATE_FILE"
+		return
 	fi
+
+	mkdir -p "$(dirname $STATE_FILE)"
+	echo '{"theme": "dark"}' > "$STATE_FILE"
 }
 
 function set_theme() {
